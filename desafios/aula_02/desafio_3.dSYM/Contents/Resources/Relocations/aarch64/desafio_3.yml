@@ -1,0 +1,5 @@
+---
+triple:          'arm64-apple-darwin'
+binary-path:     '/Users/monge/developer/studies/senac-bcc-ed-2026-ed/desafios/aula_02/desafio_3'
+relocations:     []
+...

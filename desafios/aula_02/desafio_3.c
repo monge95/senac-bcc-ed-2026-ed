@@ -52,36 +52,40 @@ void llInsereNoFim(ListaLigada lista, int info) {
     lista->fim = nova;
 }
 
-void bubbleSort(ListaLigada lista){
-     if (lista == NULL || lista->inicio == NULL)
-        return;
+void insereOrdenado(ListaLigada lista, int valor) {
+    Celula novo = novaCelula(valor);
 
-    int temp, trocou;
-    for (Celula i = lista->inicio; i != NULL; i = i->prox) {
-        trocou = 0;
-        for (Celula j = lista->inicio; j->prox != NULL; j = j->prox) {
-            if(j->info > j->prox->info){
-                temp = j->info;
-                j->info = j->prox->info;
-                j->prox->info = temp;
-                trocou = 1;
-            }
-           } 
-           if(trocou == 0){
-               break;
+    if (lista->inicio == NULL) {
+        lista->inicio = novo;
+        lista->fim = novo;
+        return;
+    }
+
+    if (valor <= lista->inicio->info) {
+        novo->prox = lista->inicio;
+        lista->inicio = novo;
+        return;
+    }
+
+    for (Celula aux = lista->inicio; aux != NULL; aux = aux->prox) {
+        if (aux->prox == NULL) {
+            aux->prox = novo;
+            lista->fim = novo;
+            break;
+        }
+        if (aux->prox->info >= valor) {
+            novo->prox = aux->prox;
+            aux->prox = novo;
+            break;
         }
     }
 }
 
 int main() {
     ListaLigada lista = novaLista();
-
-    for (int i = 10; i >= 1; i--) {
-        llInsereNoFim(lista, i);
-    }
-
-    llPrint(lista);
-    bubbleSort(lista);
+    llInsereNoFim(lista, 6);
+    llInsereNoFim(lista, 8);
+    insereOrdenado(lista, 7);
     llPrint(lista);
     return 0;
 }
